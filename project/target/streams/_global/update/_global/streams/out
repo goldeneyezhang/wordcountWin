@@ -1,0 +1,3 @@
+[debug] not up to date. inChanged = true, force = false
+[debug] Updating ProjectRef(uri("file:/E:/spark/wordcount/project/"), "wordcount-build")...
+[debug] Done updating ProjectRef(uri("file:/E:/spark/wordcount/project/"), "wordcount-build")
