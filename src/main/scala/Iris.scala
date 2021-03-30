@@ -1,4 +1,5 @@
 import org.apache.spark.ml.classification.LogisticRegression
+import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}
 import org.apache.spark.mllib.linalg.{Vector, Vectors}
@@ -41,6 +42,13 @@ object Iris {
 
     // 根据设定的模型参数与training data拟合训练得到模型
     val lrModel = lr.fit(trainingData)
-   
+    val predictions = lrModel.transform(testData)
+    predictions.select("prediction", "categoryIndex", "features").show(5)
+    val evaluator = new MulticlassClassificationEvaluator()
+      .setLabelCol("features")
+      .setPredictionCol("categoryIndex")
+      .setMetricName("accuracy")
+    val accuracy = evaluator.evaluate(predictions)
+    println("Test Error = " + (1.0 - accuracy))
   }
 }
